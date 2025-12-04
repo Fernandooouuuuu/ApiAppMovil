@@ -2,6 +2,8 @@ package com.SneakerVibe.producto.model;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,7 +29,8 @@ public class DetalleProducto {
     private String href;
     private String altText;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "producto_id", nullable = false)
+    @JsonIgnoreProperties(value = {"variantes"}, allowSetters = true)
     private Producto producto;
 }
