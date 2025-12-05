@@ -32,7 +32,12 @@ public class ProductoController {
 
     // crear nuevo producto
     @PostMapping
-    public Producto createProducto(@RequestBody Producto producto) {
+    public Producto crearProducto(@RequestBody Producto producto) {
+        // Enlazar cada variante con el producto padre
+        if (producto.getVariantes() != null) {
+            producto.getVariantes().forEach(variante -> variante.setProducto(producto));
+        }
+
         return productoRepository.save(producto);
     }
 
